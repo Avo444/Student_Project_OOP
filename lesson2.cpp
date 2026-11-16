@@ -6,7 +6,7 @@ using namespace std;
 class Student
 {
 private:
-    int n = 1;
+    int n;
     int *mark;
     char name[10];
 
