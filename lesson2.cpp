@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <random>
 
 using namespace std;
@@ -6,34 +7,36 @@ using namespace std;
 class Student
 {
 private:
-    int n;
-    int *mark;
     char name[10];
+    vector<int> mark;
 
 public:
     int random()
     {
         random_device rd;
         mt19937 gen(rd());
-
         uniform_int_distribution<int> dist(1, 10);
-
         return dist(gen);
     }
     void Input()
     {
+        int n;
+
         cout << "Please write your name: ";
         cin >> name;
 
         cout << endl
              << "Please write mark's length: ";
         cin >> n;
-        mark = new int[n];
+
+        mark.clear();
+        mark.reserve(n);
+
         cout << endl;
 
         for (int i = 0; i < n; i++)
         {
-            mark[i] = random();
+            mark.push_back(random());
         }
     }
 
@@ -41,12 +44,12 @@ public:
     {
         double sum = 0;
 
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < mark.size(); i++)
         {
             sum += mark[i];
         }
-        
-        return double (sum / n);
+
+        return double(sum / mark.size());
     }
 
     void Out(double avg)
@@ -54,9 +57,9 @@ public:
         cout << "User: " << name << endl;
         cout << "Gendles: ";
 
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < mark.size(); i++)
         {
-            cout << mark[i] << (i != n - 1 ? ", " : " ");
+            cout << mark[i] << (i != mark.size() - 1 ? ", " : " ");
         }
 
         cout << endl
